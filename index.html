@@ -20,7 +20,6 @@
             --muted-2: #94a3b8;
             --accent: #22d3ee;
             --accent-2: #38bdf8;
-            --success: #22c55e;
             --border: rgba(255, 255, 255, 0.08);
             --shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
         }
@@ -133,11 +132,12 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 13px 20px;
-            border-radius: 14px;
+            padding: 13px 22px;
+            border-radius: 999px;
             font-weight: 700;
             text-decoration: none;
             transition: 0.2s ease;
+            letter-spacing: 0.2px;
         }
 
         .btn-main {
@@ -246,15 +246,16 @@
         }
 
         .project-card {
-            background: var(--card-strong);
+            background: linear-gradient(145deg, #0f172a, #1e293b);
             border-radius: 24px;
             padding: 30px;
-            transition: 0.25s ease;
+            transition: 0.3s ease;
         }
 
         .project-card:hover {
             transform: translateY(-6px);
             border-color: rgba(34, 211, 238, 0.25);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
 
         .project-label {
@@ -315,35 +316,15 @@
             padding: 20px 0 10px;
         }
 
-        .fade-in {
-            animation: fadeInUp 0.8s ease both;
+        .fade {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.7s ease;
         }
 
-        .delay-1 {
-            animation-delay: 0.10s;
-        }
-
-        .delay-2 {
-            animation-delay: 0.20s;
-        }
-
-        .delay-3 {
-            animation-delay: 0.30s;
-        }
-
-        .delay-4 {
-            animation-delay: 0.40s;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(18px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .fade.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 992px) {
@@ -403,7 +384,7 @@
     <div class="container">
 
         <section class="hero">
-            <div class="hero-card w-100 fade-in">
+            <div class="hero-card w-100 fade">
                 <span class="eyebrow">Portfólio profissional</span>
 
                 <h1 class="hero-title">
@@ -431,17 +412,17 @@
                 </div>
 
                 <div class="hero-stats">
-                    <div class="stat-card fade-in delay-1">
+                    <div class="stat-card fade">
                         <div class="stat-number">1</div>
                         <div class="stat-label">Projeto principal em produção</div>
                     </div>
 
-                    <div class="stat-card fade-in delay-2">
+                    <div class="stat-card fade">
                         <div class="stat-number">Flask</div>
                         <div class="stat-label">Stack principal backend</div>
                     </div>
 
-                    <div class="stat-card fade-in delay-3">
+                    <div class="stat-card fade">
                         <div class="stat-number">PostgreSQL</div>
                         <div class="stat-label">Banco de dados em produção</div>
                     </div>
@@ -450,7 +431,7 @@
         </section>
 
         <section id="sobre" class="section-spacing">
-            <div class="section-card fade-in delay-1">
+            <div class="section-card fade">
                 <h2 class="section-title">Sobre mim</h2>
                 <p class="section-text">
                     Atualmente curso Ciência da Computação e venho desenvolvendo projetos práticos para consolidar
@@ -463,7 +444,7 @@
         </section>
 
         <section id="tecnologias" class="section-spacing">
-            <div class="section-card fade-in delay-2">
+            <div class="section-card fade">
                 <h2 class="section-title">Tecnologias</h2>
 
                 <div class="tech-grid">
@@ -482,48 +463,83 @@
         </section>
 
         <section id="projetos" class="section-spacing">
-            <div class="project-card fade-in delay-3">
-                <div class="project-label">Projeto em destaque</div>
-                <h2 class="project-title">People Management Web</h2>
+            <div class="row g-4">
+                <div class="col-12">
+                    <div class="project-card fade">
+                        <div class="project-label">Projeto em destaque</div>
+                        <h2 class="project-title">People Management Web</h2>
 
-                <p class="project-text">
-                    Aplicação web completa desenvolvida com Flask para gerenciamento de pessoas.
-                    O sistema possui autenticação de usuários, CRUD completo, busca, paginação,
-                    integração com banco de dados e deploy online.
-                </p>
+                        <p class="project-text">
+                            Aplicação web completa desenvolvida com Flask para gerenciamento de pessoas.
+                            O sistema possui autenticação de usuários, CRUD completo, busca, paginação,
+                            integração com banco de dados e deploy online.
+                        </p>
 
-                <ul class="project-list">
-                    <li>Autenticação de usuários com login e logout</li>
-                    <li>CRUD completo para cadastro, edição e remoção de pessoas</li>
-                    <li>Busca por nome e paginação de resultados</li>
-                    <li>Banco SQLite no desenvolvimento e PostgreSQL em produção</li>
-                    <li>Estrutura modular com Blueprints e camada de serviço</li>
-                    <li>Deploy realizado na Render</li>
-                </ul>
+                        <ul class="project-list">
+                            <li>Autenticação de usuários com login e logout</li>
+                            <li>CRUD completo para cadastro, edição e remoção de pessoas</li>
+                            <li>Busca por nome e paginação de resultados</li>
+                            <li>Banco SQLite no desenvolvimento e PostgreSQL em produção</li>
+                            <li>Estrutura modular com Blueprints e camada de serviço</li>
+                            <li>Deploy realizado na Render</li>
+                        </ul>
 
-                <div class="tech-grid mb-4">
-                    <span class="tech-badge">Autenticação</span>
-                    <span class="tech-badge">CRUD</span>
-                    <span class="tech-badge">Paginação</span>
-                    <span class="tech-badge">Blueprints</span>
-                    <span class="tech-badge">Service Layer</span>
-                    <span class="tech-badge">Render</span>
+                        <div class="tech-grid mb-4">
+                            <span class="tech-badge">Autenticação</span>
+                            <span class="tech-badge">CRUD</span>
+                            <span class="tech-badge">Paginação</span>
+                            <span class="tech-badge">Blueprints</span>
+                            <span class="tech-badge">Service Layer</span>
+                            <span class="tech-badge">Render</span>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="https://people-management-web.onrender.com" target="_blank" class="btn-main">
+                                Ver sistema online
+                            </a>
+
+                            <a href="https://github.com/Eduardo-S-Balbino/people-management-web" target="_blank" class="btn-alt">
+                                Ver código-fonte
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="d-flex flex-wrap gap-3">
-                    <a href="https://people-management-web.onrender.com" target="_blank" class="btn-main">
-                        Ver sistema online
-                    </a>
+                <div class="col-12">
+                    <div class="project-card fade">
+                        <div class="project-label">Projeto complementar</div>
+                        <h2 class="project-title">To-Do List System</h2>
 
-                    <a href="https://github.com/Eduardo-S-Balbino/people-management-web" target="_blank" class="btn-alt">
-                        Ver código-fonte
-                    </a>
+                        <p class="project-text">
+                            Projeto focado em organização de tarefas, criado para fortalecer fundamentos de lógica,
+                            estrutura de aplicação e manipulação de dados em Python.
+                        </p>
+
+                        <ul class="project-list">
+                            <li>Cadastro e gerenciamento de tarefas</li>
+                            <li>Organização da lógica da aplicação</li>
+                            <li>Projeto voltado ao fortalecimento da base prática</li>
+                        </ul>
+
+                        <div class="tech-grid mb-4">
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">Lógica</span>
+                            <span class="tech-badge">Estruturação</span>
+                            <span class="tech-badge">Projeto prático</span>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="https://github.com/Eduardo-S-Balbino/todo-list-system" target="_blank" class="btn-alt">
+                                Ver código-fonte
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="contato" class="section-spacing">
-            <div class="contact-card fade-in delay-4">
+            <div class="contact-card fade">
                 <h2 class="section-title">Contato</h2>
                 <p class="section-text mb-4">
                     Estou aberto a oportunidades de estágio e desenvolvimento júnior. Se quiser conversar sobre
@@ -549,6 +565,20 @@
         </footer>
 
     </div>
+
+    <script>
+        const elements = document.querySelectorAll('.fade');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        });
+
+        elements.forEach((element) => observer.observe(element));
+    </script>
 
 </body>
 </html>
