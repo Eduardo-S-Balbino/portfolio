@@ -20,7 +20,6 @@
             --muted-2: #94a3b8;
             --accent: #22d3ee;
             --accent-2: #38bdf8;
-            --accent-3: #06b6d4;
             --border: rgba(255, 255, 255, 0.08);
             --shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
         }
@@ -42,6 +41,7 @@
                 radial-gradient(circle at top right, rgba(34, 211, 238, 0.10), transparent 25%),
                 radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.12), transparent 20%),
                 linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-3) 100%);
+            overflow-x: hidden;
         }
 
         .navbar-custom {
@@ -158,7 +158,7 @@
             border-radius: 999px;
             font-weight: 700;
             text-decoration: none;
-            transition: 0.2s ease;
+            transition: 0.25s ease;
             letter-spacing: 0.2px;
         }
 
@@ -170,7 +170,7 @@
 
         .btn-main:hover {
             color: #001018;
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 0 14px 28px rgba(34, 211, 238, 0.18);
         }
 
@@ -183,7 +183,7 @@
         .btn-alt:hover {
             color: var(--accent);
             border-color: rgba(34, 211, 238, 0.35);
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.02);
         }
 
         .hero-stats {
@@ -198,11 +198,11 @@
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 20px;
-            transition: 0.25s ease;
+            transition: 0.3s ease;
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px) scale(1.01);
             border-color: rgba(34, 211, 238, 0.25);
         }
 
@@ -226,11 +226,11 @@
             background: var(--panel);
             border-radius: 26px;
             padding: 34px;
-            transition: 0.25s ease;
+            transition: 0.3s ease;
         }
 
         .section-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
         }
 
         .section-title {
@@ -256,11 +256,11 @@
             background: linear-gradient(145deg, rgba(2, 6, 23, 0.78), rgba(15, 23, 42, 0.92));
             border-radius: 22px;
             padding: 24px;
-            transition: 0.25s ease;
+            transition: 0.3s ease;
         }
 
         .highlight-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px) scale(1.01);
             border-color: rgba(34, 211, 238, 0.25);
         }
 
@@ -291,11 +291,11 @@
             border: 1px solid rgba(34, 211, 238, 0.2);
             font-size: 0.95rem;
             font-weight: 700;
-            transition: 0.2s ease;
+            transition: 0.25s ease;
         }
 
         .tech-badge:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.04);
             background: rgba(34, 211, 238, 0.14);
         }
 
@@ -307,7 +307,7 @@
         }
 
         .project-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-8px) scale(1.01);
             border-color: rgba(34, 211, 238, 0.25);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
@@ -350,11 +350,11 @@
             background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.94));
             border-radius: 26px;
             padding: 34px;
-            transition: 0.25s ease;
+            transition: 0.3s ease;
         }
 
         .contact-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
         }
 
         .contact-link {
@@ -372,15 +372,50 @@
             padding: 24px 0 12px;
         }
 
-        .fade {
+        .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: 0.7s ease;
+            transform: translateY(35px) scale(0.98);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            will-change: opacity, transform;
         }
 
-        .fade.show {
+        .reveal.show {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-left.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-right.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.10s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.20s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.30s;
         }
 
         @media (max-width: 992px) {
@@ -447,7 +482,7 @@
     <div class="container">
 
         <section class="hero">
-            <div class="hero-card w-100 fade">
+            <div class="hero-card w-100 reveal">
                 <span class="eyebrow">Professional portfolio</span>
 
                 <h1 class="hero-title">
@@ -476,17 +511,17 @@
                 </div>
 
                 <div class="hero-stats">
-                    <div class="stat-card fade">
+                    <div class="stat-card reveal-left delay-1">
                         <div class="stat-number">1</div>
                         <div class="stat-label">Main project in production</div>
                     </div>
 
-                    <div class="stat-card fade">
+                    <div class="stat-card reveal delay-2">
                         <div class="stat-number">Flask</div>
                         <div class="stat-label">Primary backend stack</div>
                     </div>
 
-                    <div class="stat-card fade">
+                    <div class="stat-card reveal-right delay-3">
                         <div class="stat-number">PostgreSQL</div>
                         <div class="stat-label">Production database</div>
                     </div>
@@ -495,7 +530,7 @@
         </section>
 
         <section id="about" class="section-spacing">
-            <div class="section-card fade">
+            <div class="section-card reveal">
                 <h2 class="section-title">About Me</h2>
                 <p class="section-text">
                     I am currently studying Computer Science and building practical projects to strengthen my backend skills.
@@ -507,25 +542,25 @@
         </section>
 
         <section id="deliver" class="section-spacing">
-            <div class="section-card fade">
+            <div class="section-card reveal">
                 <h2 class="section-title">What I Deliver</h2>
 
                 <div class="highlight-grid">
-                    <div class="highlight-card">
+                    <div class="highlight-card reveal-left delay-1">
                         <h3 class="highlight-title">Authentication and basic security</h3>
                         <p class="highlight-text">
                             Login, logout, route protection, password hashing, and secure foundations for web applications.
                         </p>
                     </div>
 
-                    <div class="highlight-card">
+                    <div class="highlight-card reveal delay-2">
                         <h3 class="highlight-title">CRUD and business logic</h3>
                         <p class="highlight-text">
                             Real systems with create, update, delete, validations, and organized backend logic.
                         </p>
                     </div>
 
-                    <div class="highlight-card">
+                    <div class="highlight-card reveal-right delay-3">
                         <h3 class="highlight-title">Deployment and production database</h3>
                         <p class="highlight-text">
                             Online deployment with database integration and structure prepared for real environments.
@@ -536,7 +571,7 @@
         </section>
 
         <section id="technologies" class="section-spacing">
-            <div class="section-card fade">
+            <div class="section-card reveal">
                 <h2 class="section-title">Technologies</h2>
 
                 <div class="tech-grid">
@@ -557,7 +592,7 @@
         <section id="projects" class="section-spacing">
             <div class="row g-4">
                 <div class="col-12">
-                    <div class="project-card fade">
+                    <div class="project-card reveal">
                         <div class="project-label">Featured project</div>
                         <h2 class="project-title">People Management Web</h2>
 
@@ -597,7 +632,7 @@
                 </div>
 
                 <div class="col-12">
-                    <div class="project-card fade">
+                    <div class="project-card reveal">
                         <div class="project-label">Complementary project</div>
                         <h2 class="project-title">To-Do List System</h2>
 
@@ -630,7 +665,7 @@
         </section>
 
         <section id="contact" class="section-spacing">
-            <div class="contact-card fade">
+            <div class="contact-card reveal">
                 <h2 class="section-title">Contact</h2>
                 <p class="section-text mb-4">
                     I am open to internship opportunities and junior backend roles.
@@ -659,17 +694,19 @@
     </div>
 
     <script>
-        const elements = document.querySelectorAll('.fade');
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
 
-        const observer = new IntersectionObserver((entries) => {
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('show');
                 }
             });
+        }, {
+            threshold: 0.15
         });
 
-        elements.forEach((element) => observer.observe(element));
+        revealElements.forEach((element) => revealObserver.observe(element));
     </script>
 
 </body>
