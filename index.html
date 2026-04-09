@@ -544,15 +544,30 @@
                 </p>
 
                 <div class="d-flex flex-wrap gap-3">
-                    <a href="https://people-management-web.onrender.com" target="_blank" class="btn-main">
+                    <a
+                        href="https://people-management-web.onrender.com"
+                        target="_blank"
+                        class="btn-main"
+                        data-analytics="hero_live_application"
+                    >
                         View live application
                     </a>
 
-                    <a href="https://github.com/Eduardo-S-Balbino/people-management-web" target="_blank" class="btn-alt">
+                    <a
+                        href="https://github.com/Eduardo-S-Balbino/people-management-web"
+                        target="_blank"
+                        class="btn-alt"
+                        data-analytics="hero_github_project"
+                    >
                         View GitHub project
                     </a>
 
-                    <a href="https://www.linkedin.com/in/eduardo-da-silva-balbino-1611b3401/" target="_blank" class="btn-alt">
+                    <a
+                        href="https://www.linkedin.com/in/eduardo-da-silva-balbino-1611b3401/"
+                        target="_blank"
+                        class="btn-alt"
+                        data-analytics="hero_linkedin"
+                    >
                         View LinkedIn
                     </a>
                 </div>
@@ -667,11 +682,21 @@
                         </div>
 
                         <div class="d-flex flex-wrap gap-3">
-                            <a href="https://people-management-web.onrender.com" target="_blank" class="btn-main">
+                            <a
+                                href="https://people-management-web.onrender.com"
+                                target="_blank"
+                                class="btn-main"
+                                data-analytics="project_people_management_live"
+                            >
                                 View live application
                             </a>
 
-                            <a href="https://github.com/Eduardo-S-Balbino/people-management-web" target="_blank" class="btn-alt">
+                            <a
+                                href="https://github.com/Eduardo-S-Balbino/people-management-web"
+                                target="_blank"
+                                class="btn-alt"
+                                data-analytics="project_people_management_source"
+                            >
                                 View source code
                             </a>
                         </div>
@@ -702,7 +727,12 @@
                         </div>
 
                         <div class="d-flex flex-wrap gap-3">
-                            <a href="https://github.com/Eduardo-S-Balbino/todo-list-system" target="_blank" class="btn-alt">
+                            <a
+                                href="https://github.com/Eduardo-S-Balbino/todo-list-system"
+                                target="_blank"
+                                class="btn-alt"
+                                data-analytics="project_todo_source"
+                            >
                                 View source code
                             </a>
                         </div>
@@ -776,6 +806,21 @@
             const newTheme = isLight ? 'dark' : 'light';
             localStorage.setItem('portfolio-theme', newTheme);
             applyTheme(newTheme);
+        });
+
+        const analyticsButtons = document.querySelectorAll('[data-analytics]');
+
+        analyticsButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const eventName = button.getAttribute('data-analytics');
+                const destination = button.getAttribute('href') || '';
+
+                gtag('event', 'click_portfolio_button', {
+                    button_name: eventName,
+                    button_url: destination,
+                    page_path: window.location.pathname
+                });
+            });
         });
     </script>
 
