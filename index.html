@@ -811,15 +811,27 @@
         const analyticsButtons = document.querySelectorAll('[data-analytics]');
 
         analyticsButtons.forEach((button) => {
-            button.addEventListener('click', () => {
+            button.addEventListener('click', (event) => {
                 const eventName = button.getAttribute('data-analytics');
                 const destination = button.getAttribute('href') || '';
+                const target = button.getAttribute('target');
+
+                event.preventDefault();
 
                 gtag('event', 'click_portfolio_button', {
                     button_name: eventName,
                     button_url: destination,
-                    page_path: window.location.pathname
+                    page_path: window.location.pathname,
+                    transport_type: 'beacon'
                 });
+
+                setTimeout(() => {
+                    if (target === '_blank') {
+                        window.open(destination, '_blank');
+                    } else {
+                        window.location.href = destination;
+                    }
+                }, 250);
             });
         });
     </script>
