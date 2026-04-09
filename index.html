@@ -816,22 +816,38 @@
                 const destination = button.getAttribute('href') || '';
                 const target = button.getAttribute('target');
 
+                if (!destination) {
+                    return;
+                }
+
                 event.preventDefault();
 
-                gtag('event', 'click_portfolio_button', {
-                    button_name: eventName,
-                    button_url: destination,
-                    page_path: window.location.pathname,
-                    transport_type: 'beacon'
-                });
+                let hasNavigated = false;
 
-                setTimeout(() => {
+                const navigateAfterTracking = () => {
+                    if (hasNavigated) {
+                        return;
+                    }
+
+                    hasNavigated = true;
+
                     if (target === '_blank') {
                         window.open(destination, '_blank');
                     } else {
                         window.location.href = destination;
                     }
-                }, 250);
+                };
+
+                gtag('event', 'click_portfolio_button', {
+                    button_name: eventName,
+                    button_url: destination,
+                    page_path: window.location.pathname,
+                    transport_type: 'beacon',
+                    event_callback: navigateAfterTracking,
+                    event_timeout: 2000
+                });
+
+                setTimeout(navigateAfterTracking, 2200);
             });
         });
     </script>
