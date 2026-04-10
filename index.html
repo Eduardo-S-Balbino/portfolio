@@ -547,6 +547,7 @@
                     <a
                         href="https://people-management-web.onrender.com"
                         target="_blank"
+                        rel="noopener noreferrer"
                         class="btn-main"
                         data-analytics="hero_live_application"
                     >
@@ -556,6 +557,7 @@
                     <a
                         href="https://github.com/Eduardo-S-Balbino/people-management-web"
                         target="_blank"
+                        rel="noopener noreferrer"
                         class="btn-alt"
                         data-analytics="hero_github_project"
                     >
@@ -565,6 +567,7 @@
                     <a
                         href="https://www.linkedin.com/in/eduardo-da-silva-balbino-1611b3401/"
                         target="_blank"
+                        rel="noopener noreferrer"
                         class="btn-alt"
                         data-analytics="hero_linkedin"
                     >
@@ -685,6 +688,7 @@
                             <a
                                 href="https://people-management-web.onrender.com"
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 class="btn-main"
                                 data-analytics="project_people_management_live"
                             >
@@ -694,6 +698,7 @@
                             <a
                                 href="https://github.com/Eduardo-S-Balbino/people-management-web"
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 class="btn-alt"
                                 data-analytics="project_people_management_source"
                             >
@@ -730,6 +735,7 @@
                             <a
                                 href="https://github.com/Eduardo-S-Balbino/todo-list-system"
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 class="btn-alt"
                                 data-analytics="project_todo_source"
                             >
@@ -752,12 +758,24 @@
 
                 <p class="mb-2">
                     <strong>Email:</strong>
-                    <a class="contact-link" href="mailto:ed.s.balbino@gmail.com">ed.s.balbino@gmail.com</a>
+                    <a
+                        class="contact-link"
+                        href="mailto:ed.s.balbino@gmail.com"
+                        data-analytics="contact_email"
+                    >
+                        ed.s.balbino@gmail.com
+                    </a>
                 </p>
 
                 <p class="mb-0">
                     <strong>LinkedIn:</strong>
-                    <a class="contact-link" href="https://www.linkedin.com/in/eduardo-da-silva-balbino-1611b3401/" target="_blank">
+                    <a
+                        class="contact-link"
+                        href="https://www.linkedin.com/in/eduardo-da-silva-balbino-1611b3401/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-analytics="contact_linkedin"
+                    >
                         linkedin.com/in/eduardo-da-silva-balbino-1611b3401
                     </a>
                 </p>
@@ -806,6 +824,12 @@
             const newTheme = isLight ? 'dark' : 'light';
             localStorage.setItem('portfolio-theme', newTheme);
             applyTheme(newTheme);
+
+            gtag('event', 'theme_toggle', {
+                theme_selected: newTheme,
+                page_path: window.location.pathname,
+                send_to: 'G-VPVXVTXXR5'
+            });
         });
 
         const analyticsButtons = document.querySelectorAll('[data-analytics]');
@@ -831,6 +855,11 @@
 
                     hasNavigated = true;
 
+                    if (destination.startsWith('mailto:')) {
+                        window.location.href = destination;
+                        return;
+                    }
+
                     if (target === '_blank') {
                         window.open(destination, '_blank');
                     } else {
@@ -839,10 +868,13 @@
                 };
 
                 gtag('event', 'click_portfolio_button', {
+                    event_category: 'engagement',
+                    event_label: eventName,
                     button_name: eventName,
                     button_url: destination,
                     page_path: window.location.pathname,
                     transport_type: 'beacon',
+                    send_to: 'G-VPVXVTXXR5',
                     event_callback: navigateAfterTracking,
                     event_timeout: 2000
                 });
