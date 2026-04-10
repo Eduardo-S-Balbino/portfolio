@@ -852,7 +852,15 @@
 
                 event.preventDefault();
 
+                let hasNavigated = false;
+
                 const navigate = () => {
+                    if (hasNavigated) {
+                        return;
+                    }
+
+                    hasNavigated = true;
+
                     if (destination.startsWith('mailto:')) {
                         window.location.href = destination;
                         return;
@@ -873,11 +881,14 @@
                         button_url: destination,
                         page_path: window.location.pathname,
                         send_to: 'G-VPVXVTXXR5',
-                        debug_mode: true
+                        transport_type: 'beacon',
+                        debug_mode: true,
+                        event_callback: navigate,
+                        event_timeout: 2000
                     });
                 }
 
-                setTimeout(navigate, 500);
+                setTimeout(navigate, 2200);
             });
         });
     </script>
