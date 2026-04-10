@@ -11,9 +11,12 @@
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
+
         gtag('js', new Date());
+
         gtag('config', 'G-VPVXVTXXR5', {
-            page_path: window.location.pathname
+            page_path: window.location.pathname,
+            debug_mode: true
         });
     </script>
 
@@ -825,11 +828,14 @@
             localStorage.setItem('portfolio-theme', newTheme);
             applyTheme(newTheme);
 
-            gtag('event', 'theme_toggle', {
-                theme_selected: newTheme,
-                page_path: window.location.pathname,
-                send_to: 'G-VPVXVTXXR5'
-            });
+            if (typeof gtag === 'function') {
+                gtag('event', 'theme_toggle', {
+                    theme_selected: newTheme,
+                    page_path: window.location.pathname,
+                    send_to: 'G-VPVXVTXXR5',
+                    debug_mode: true
+                });
+            }
         });
 
         const analyticsButtons = document.querySelectorAll('[data-analytics]');
@@ -846,40 +852,32 @@
 
                 event.preventDefault();
 
-                let hasNavigated = false;
-
-                const navigateAfterTracking = () => {
-                    if (hasNavigated) {
-                        return;
-                    }
-
-                    hasNavigated = true;
-
+                const navigate = () => {
                     if (destination.startsWith('mailto:')) {
                         window.location.href = destination;
                         return;
                     }
 
                     if (target === '_blank') {
-                        window.open(destination, '_blank');
+                        window.open(destination, '_blank', 'noopener,noreferrer');
                     } else {
                         window.location.href = destination;
                     }
                 };
 
-                gtag('event', 'click_portfolio_button', {
-                    event_category: 'engagement',
-                    event_label: eventName,
-                    button_name: eventName,
-                    button_url: destination,
-                    page_path: window.location.pathname,
-                    transport_type: 'beacon',
-                    send_to: 'G-VPVXVTXXR5',
-                    event_callback: navigateAfterTracking,
-                    event_timeout: 2000
-                });
+                if (typeof gtag === 'function') {
+                    gtag('event', 'click_portfolio_button', {
+                        event_category: 'engagement',
+                        event_label: eventName,
+                        button_name: eventName,
+                        button_url: destination,
+                        page_path: window.location.pathname,
+                        send_to: 'G-VPVXVTXXR5',
+                        debug_mode: true
+                    });
+                }
 
-                setTimeout(navigateAfterTracking, 2200);
+                setTimeout(navigate, 500);
             });
         });
     </script>
