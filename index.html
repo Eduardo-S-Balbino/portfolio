@@ -10,12 +10,25 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VPVXVTXXR5"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() {
+            dataLayer.push(arguments);
+        }
 
         gtag('js', new Date());
 
         gtag('config', 'G-VPVXVTXXR5', {
-            debug_mode: true
+            debug_mode: true,
+            page_path: window.location.pathname,
+            page_title: document.title,
+            page_location: window.location.href
+        });
+
+        // Envia page_view manual para reforçar a aparição no DebugView
+        gtag('event', 'page_view', {
+            debug_mode: true,
+            page_title: document.title,
+            page_location: window.location.href,
+            page_path: window.location.pathname
         });
     </script>
 
@@ -829,10 +842,11 @@
 
             if (typeof gtag === 'function') {
                 gtag('event', 'theme_toggle', {
+                    debug_mode: true,
                     theme_selected: newTheme,
                     page_path: window.location.pathname,
-                    send_to: 'G-VPVXVTXXR5',
-                    debug_mode: true
+                    page_location: window.location.href,
+                    page_title: document.title
                 });
             }
         });
@@ -840,54 +854,26 @@
         const analyticsButtons = document.querySelectorAll('[data-analytics]');
 
         analyticsButtons.forEach((button) => {
-            button.addEventListener('click', (event) => {
+            button.addEventListener('click', () => {
                 const eventName = button.getAttribute('data-analytics');
                 const destination = button.getAttribute('href') || '';
-                const target = button.getAttribute('target');
 
-                if (!destination) {
+                if (!destination || typeof gtag !== 'function') {
                     return;
                 }
 
-                event.preventDefault();
-
-                let hasNavigated = false;
-
-                const navigate = () => {
-                    if (hasNavigated) {
-                        return;
-                    }
-
-                    hasNavigated = true;
-
-                    if (destination.startsWith('mailto:')) {
-                        window.location.href = destination;
-                        return;
-                    }
-
-                    if (target === '_blank') {
-                        window.open(destination, '_blank', 'noopener,noreferrer');
-                    } else {
-                        window.location.href = destination;
-                    }
-                };
-
-                if (typeof gtag === 'function') {
-                    gtag('event', 'click_portfolio_button', {
-                        event_category: 'engagement',
-                        event_label: eventName,
-                        button_name: eventName,
-                        button_url: destination,
-                        page_path: window.location.pathname,
-                        send_to: 'G-VPVXVTXXR5',
-                        transport_type: 'beacon',
-                        debug_mode: true,
-                        event_callback: navigate,
-                        event_timeout: 2000
-                    });
-                }
-
-                setTimeout(navigate, 2200);
+                gtag('event', 'click_portfolio_button', {
+                    debug_mode: true,
+                    event_category: 'engagement',
+                    event_label: eventName,
+                    button_name: eventName,
+                    button_url: destination,
+                    link_url: destination,
+                    page_path: window.location.pathname,
+                    page_location: window.location.href,
+                    page_title: document.title,
+                    transport_type: 'beacon'
+                });
             });
         });
     </script>
